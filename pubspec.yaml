@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.14.3"
   flutter_test:
     sdk: flutter
 
@@ -91,3 +92,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_launcher_icons:
+  web:
+    generate: true
+    image_path: "asset/appLogo/faceAppLogo.jpg"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "asset/appLogo/faceAppLogo.jpg"
+    icon_size: 48 # min:48, max:256, default: 48
