@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:knucl_face_analyzer_2025/View/face_analyze_result_view.dart';
 import '../ViewModel/image_upload_viewmodel.dart';
-import 'package:toastification/toastification.dart';
+
+import '../common/toast_notification.dart';
 
 class ImageUploadView extends ConsumerStatefulWidget {
   const ImageUploadView({super.key});
@@ -37,36 +38,7 @@ class _ImageUploadViewState extends ConsumerState<ImageUploadView> {
   }
 
   void errorAlertAndReSelect(error, stacktrace) {
-    toastification.show(
-      context: context,
-      type: ToastificationType.success,
-      style: ToastificationStyle.flat,
-      autoCloseDuration: const Duration(seconds: 3),
-      title: Text(_mainWarningText, style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.015)),
-      // you can also use RichText widget for title and description parameters
-      description: RichText(
-        text: TextSpan(text: _warnignExpalin),
-      ),
-      alignment: Alignment.topRight,
-      direction: TextDirection.ltr,
-      animationDuration: const Duration(milliseconds: 300),
-      animationBuilder: (context, animation, alignment, child) {
-        return FadeTransition(opacity: animation, child: child);
-      },
-      icon: const Icon(Icons.error_outline),
-      showIcon: true,
-      // show or hide the icon
-      primaryColor: Colors.red,
-      backgroundColor: Colors.black,
-      foregroundColor: Colors.red,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      borderRadius: BorderRadius.circular(12),
-      showProgressBar: true,
-      closeButton: ToastCloseButton(
-        showType: CloseButtonShowType.onHover,
-      ),
-    );
+    errorNotification(context, _mainWarningText, _warnignExpalin);
     selectImage();
   }
 
