@@ -25,56 +25,16 @@ class HomeView extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-              child: Image.asset("asset/logo.jpeg", width: 300),
-            ),
+            getCLLogo(context),
             Center(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(padding: EdgeInsets.only(left: 860)),
-                  Padding(
-                    padding: EdgeInsets.only(top: 950),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all<Color>(
-                          Colors.black,
-                        ),
-                        foregroundColor: WidgetStateProperty.all<Color>(
-                          Colors.white,
-                        ),
-                      ),
-                      onPressed:
-                          () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ImageUploadView(),
-                            ),
-                          ),
-                      child: Text("시작하기", style: TextStyle(fontSize: 37)),
-                    ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.12,
                   ),
-                  Padding(padding: EdgeInsets.only(left: 500)),
-                  Text(
-                    title1,
-                    style: TextStyle(
-                      fontSize: 80,
-                      color: Colors.black,
-                      letterSpacing: 10,
-                      fontWeight: FontWeight.w900,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Padding(padding: EdgeInsets.only(left: 30)),
-                  Text(
-                    title2,
-                    style: TextStyle(
-                      fontSize: 60,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  startButton(context),
+                  applicationTitle(context, title1, title2),
                 ],
               ),
             ),
@@ -83,4 +43,64 @@ class HomeView extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget getCLLogo(BuildContext context) {
+  return Padding(
+    padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.01, MediaQuery.of(context).size.width * 0.01, 0, 0),
+    child: Image.asset("asset/logo.jpeg", width: MediaQuery.of(context).size.width * 0.15),
+  );
+}
+
+Widget startButton(BuildContext context) {
+  return Padding(
+    padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.8),
+    child: ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all<Color>(
+          Colors.black,
+        ),
+        foregroundColor: WidgetStateProperty.all<Color>(
+          Colors.white,
+        ),
+      ),
+      onPressed:
+          () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ImageUploadView(),
+        ),
+      ),
+      child: Text("시작하기", style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.02)),
+    ),
+  );
+}
+
+Widget applicationTitle(BuildContext context, String title1, String title2) {
+  return Padding(
+    padding: EdgeInsets.fromLTRB(0, MediaQuery.of(context).size.height * 0.05, MediaQuery.of(context).size.width * 0.05, MediaQuery.of(context).size.height * 0.05),
+    child: Row(
+      children: [
+        Text(
+          title1,
+          style: titleStyle(context, 0.05),
+          textAlign: TextAlign.center,
+        ),
+        Padding(padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.01)),
+        Text(
+          title2,
+          style: titleStyle(context, 0.035),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ),
+  );
+}
+
+TextStyle titleStyle(BuildContext context, double fontSize) {
+  return TextStyle(
+    fontSize: MediaQuery.of(context).size.width * fontSize,
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+  );
 }
