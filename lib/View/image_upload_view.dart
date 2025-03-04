@@ -142,10 +142,10 @@ Widget _underButtons(BuildContext context, String _requestButtonText) {
 Widget _goToNextPageButton(BuildContext context, String _requestButtonText) {
   return ElevatedButton(
     style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all<Color>(
+      backgroundColor: WidgetStateProperty.all<Color>(
         Colors.black,
       ),
-      foregroundColor: MaterialStateProperty.all<Color>(
+      foregroundColor: WidgetStateProperty.all<Color>(
         Colors.white,
       ),
     ),
