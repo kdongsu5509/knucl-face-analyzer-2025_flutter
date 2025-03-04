@@ -1,7 +1,7 @@
-import 'dart:developer';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:knucl_face_analyzer_2025/View/face_analyze_result_view.dart';
 import '../ViewModel/image_upload_viewmodel.dart';
 import 'package:toastification/toastification.dart';
 
@@ -109,7 +109,7 @@ class _ImageUploadViewState extends ConsumerState<ImageUploadView> {
                 ),
               ),
             //분석하기 버튼
-            _goToNextPageButton(context, _requestButtonText),
+            _underButtons(context, _requestButtonText),
           ],
         ),
       ),
@@ -127,14 +127,50 @@ Widget _imageRequestBody(BuildContext context, String _imageRequestText) {
   );
 }
 
+Widget _underButtons(BuildContext context, String _requestButtonText) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      SizedBox(width: MediaQuery.of(context).size.width * 0.05,),
+      _goToNextPageButton(context, _requestButtonText),
+      _backButton(context),
+    ],
+  );
+}
+
 Widget _goToNextPageButton(BuildContext context, String _requestButtonText) {
-  return Padding(
-    padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
-    child: ElevatedButton(
-      onPressed: () {
-        log("ElevatedButton is clicked");
-      },
-      child: Text(_requestButtonText),
+  return ElevatedButton(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all<Color>(
+        Colors.black,
+      ),
+      foregroundColor: MaterialStateProperty.all<Color>(
+        Colors.white,
+      ),
+    ),
+    onPressed: () {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => FaceAnalyzeResultView()));
+    },
+    child: Text(_requestButtonText, style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.015)),
+  );
+}
+
+Widget _backButton(BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.pop(context);
+    },
+    child: Padding(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.0175),
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+        ),
+        width: MediaQuery.of(context).size.width * 0.08,
+        height: MediaQuery.of(context).size.width * 0.04,
+        child: Text("이전", style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.015)),
+      ),
     ),
   );
 }
