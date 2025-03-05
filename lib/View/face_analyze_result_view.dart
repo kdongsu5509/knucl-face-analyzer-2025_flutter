@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:knucl_face_analyzer_2025/View/home_view.dart';
 
 class FaceAnalyzeResultView extends ConsumerStatefulWidget {
-  const FaceAnalyzeResultView({super.key});
+  final int imageId;
+
+  const FaceAnalyzeResultView({super.key, required this.imageId});
 
   @override
   ConsumerState<FaceAnalyzeResultView> createState() =>

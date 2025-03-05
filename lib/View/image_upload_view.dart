@@ -130,14 +130,14 @@ Widget _goToNextPageButton(BuildContext context, String _requestButtonText, Uint
         Colors.white,
       ),
     ),
-    onPressed: () {
+    onPressed: () async {
       try{
-        uploadImage(_image!);
+        int _imageId = await uploadImage(_image!);
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => FaceAnalyzeResultView(imageId: _imageId,)));
       } catch (error, stackTrace) {
-        errorNotification(context, "이미지 업로드 실패", "이미지 업로드에 실패했습니다.");
+        errorNotification(context, "사진 업로드 실패",error.toString().split(":")[5].split(",")[0]);
         log("Error: $error, StackTrace: $stackTrace");
       }
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => FaceAnalyzeResultView()));
     },
     child: Text(_requestButtonText, style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.015)),
   );
