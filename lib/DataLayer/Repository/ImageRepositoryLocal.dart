@@ -30,12 +30,12 @@ class ImageRepositoryLocal implements ImageRepository {
    */
   ///
   @override
-  Future<String> getImage(int id) async {
+  String getImage(int id) {
     //check the id is valid
     if(!_images.containsKey(id)) {
-      return Future.error("Invalid ID");
+      return "Invalid ID";
     }
-    return Future.value(_images[id]);
+    return _images[id]!;
   }
 
   @override
