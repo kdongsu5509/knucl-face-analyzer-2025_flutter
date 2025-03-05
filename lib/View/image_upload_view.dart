@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,11 +21,14 @@ class _ImageUploadViewState extends ConsumerState<ImageUploadView> {
   final String _warnignExpalin = "빈 이미지는 허용되지 않습니다!";
 
   AsyncValue<Uint8List>? _imageData = AsyncValue.loading();
+  Uint8List? _image = null;
+  ImageUploadViewModel _imageUploadViewModel = ImageUploadViewModel();
 
   void selectImage() {
     ref
         .read(imageSelectProvider.future)
         .then((value) {
+          _image = value;
           setState(() {
             _imageData = AsyncValue.data(value);
           });
@@ -40,6 +44,11 @@ class _ImageUploadViewState extends ConsumerState<ImageUploadView> {
   void errorAlertAndReSelect(error, stacktrace) {
     errorNotification(context, _mainWarningText, _warnignExpalin);
     selectImage();
+  }
+
+  Future<int> uploadImage(Uint8List encodedImage) async {
+    int _imageId = await _imageUploadViewModel.saveImage(encodedImage);
+    return _imageId;
   }
 
   @override
@@ -81,7 +90,7 @@ class _ImageUploadViewState extends ConsumerState<ImageUploadView> {
                 ),
               ),
             //분석하기 버튼
-            _underButtons(context, _requestButtonText),
+            _underButtons(context, _requestButtonText, _image, uploadImage),
           ],
         ),
       ),
@@ -99,19 +108,19 @@ Widget _imageRequestBody(BuildContext context, String _imageRequestText) {
   );
 }
 
-Widget _underButtons(BuildContext context, String _requestButtonText) {
+Widget _underButtons(BuildContext context, String _requestButtonText, Uint8List? _imageData, Future<int> Function(Uint8List) uploadImage) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       SizedBox(width: MediaQuery.of(context).size.width * 0.05,),
-      _goToNextPageButton(context, _requestButtonText),
+      _goToNextPageButton(context, _requestButtonText, _imageData, uploadImage),
       _backButton(context),
     ],
   );
 }
 
-Widget _goToNextPageButton(BuildContext context, String _requestButtonText) {
+Widget _goToNextPageButton(BuildContext context, String _requestButtonText, Uint8List? _image, Future<int> Function(Uint8List) uploadImage) {
   return ElevatedButton(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all<Color>(
@@ -122,6 +131,12 @@ Widget _goToNextPageButton(BuildContext context, String _requestButtonText) {
       ),
     ),
     onPressed: () {
+      try{
+        uploadImage(_image!);
+      } catch (error, stackTrace) {
+        errorNotification(context, "이미지 업로드 실패", "이미지 업로드에 실패했습니다.");
+        log("Error: $error, StackTrace: $stackTrace");
+      }
       Navigator.of(context).push(MaterialPageRoute(builder: (context) => FaceAnalyzeResultView()));
     },
     child: Text(_requestButtonText, style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.015)),
