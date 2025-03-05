@@ -47,3 +47,6 @@ app.*.map.json
 # results of flutter build of web and windwos
 /web/
 /windows/
+
+# information about project's secrets
+*.env
