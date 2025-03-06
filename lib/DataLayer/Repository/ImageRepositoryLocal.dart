@@ -1,10 +1,10 @@
 import 'dart:typed_data';
+
 import '../Service/ImageService.dart';
 import 'ImageRepository.dart';
 
 class ImageRepositoryLocal implements ImageRepository {
-
-  ImageService _imageService = ImageService();
+  final ImageService _imageService = ImageService();
 
   int _id = 0;
 
@@ -40,10 +40,21 @@ class ImageRepositoryLocal implements ImageRepository {
 
   @override
   Future<bool> deleteImage(int id) async {
+
+    //로컬과 서버에서 이미지를 삭제해야 함.
+
     //check the id is valid
     if(!_images.containsKey(id)) {
       return Future.value(false);
     }
+
+    //ImageService를 통해 서버에서 이미지 삭제
+    //1. 이미지 주소를 가져옴
+    String imgAddress = _images[id]!;
+    //2. 이미지 삭제 요청
+    await _imageService.deleteImage(imgAddress);
+
+    //로컬에서 이미지 삭제
     _images.remove(id);
     return Future.value(true);
   }

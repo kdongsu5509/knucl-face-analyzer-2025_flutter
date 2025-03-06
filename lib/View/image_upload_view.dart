@@ -22,7 +22,8 @@ class _ImageUploadViewState extends ConsumerState<ImageUploadView> {
 
   AsyncValue<Uint8List>? _imageData = AsyncValue.loading();
   Uint8List? _image = null;
-  ImageUploadViewModel _imageUploadViewModel = ImageUploadViewModel();
+  final ImageUploadViewModel _imageUploadViewModel = ImageUploadViewModel();
+
 
   void selectImage() {
     ref
