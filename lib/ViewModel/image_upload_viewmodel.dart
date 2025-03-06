@@ -23,7 +23,7 @@ final imageSelectProvider = FutureProvider.autoDispose<Uint8List>((ref) async {
 class ImageUploadViewModel {
   final ImageRepository _imageRepository = ImageRepositoryLocal();
 
-  Future<int> saveImage(Uint8List encodedImage) async {
+  Future<String> saveImage(Uint8List encodedImage) async {
     return await _imageRepository.saveImage(encodedImage);
   }
 

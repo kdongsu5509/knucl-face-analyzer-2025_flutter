@@ -12,7 +12,7 @@ class ImageRepositoryLocal implements ImageRepository {
   Map<int, String> _images = {};
 
   @override
-  Future<int> saveImage(Uint8List encodedImage) async {
+  Future<String> saveImage(Uint8List encodedImage) async {
     int currentId = _id++; // 현재 ID를 저장하고 증가
 
     //서버에 이미지 저장 요청
@@ -20,7 +20,7 @@ class ImageRepositoryLocal implements ImageRepository {
 
     //이미지 ID와 S3 주소를 저장
     _images[currentId] = imageUrl; // 이미지 저장
-    return currentId; // 저장된 이미지의 ID 반환
+    return imageUrl; // 저장된 이미지의 ID 반환
   }
 
   /**

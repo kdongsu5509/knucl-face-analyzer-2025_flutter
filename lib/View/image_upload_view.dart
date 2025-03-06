@@ -47,9 +47,9 @@ class _ImageUploadViewState extends ConsumerState<ImageUploadView> {
     selectImage();
   }
 
-  Future<int> uploadImage(Uint8List encodedImage) async {
-    int _imageId = await _imageUploadViewModel.saveImage(encodedImage);
-    return _imageId;
+  Future<String> uploadImage(Uint8List encodedImage) async {
+    String _imageUrl = await _imageUploadViewModel.saveImage(encodedImage);
+    return _imageUrl;
   }
 
   @override
@@ -109,7 +109,7 @@ Widget _imageRequestBody(BuildContext context, String _imageRequestText) {
   );
 }
 
-Widget _underButtons(BuildContext context, String _requestButtonText, Uint8List? _imageData, Future<int> Function(Uint8List) uploadImage) {
+Widget _underButtons(BuildContext context, String _requestButtonText, Uint8List? _imageData, Future<String> Function(Uint8List) uploadImage) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,7 +121,7 @@ Widget _underButtons(BuildContext context, String _requestButtonText, Uint8List?
   );
 }
 
-Widget _goToNextPageButton(BuildContext context, String _requestButtonText, Uint8List? _image, Future<int> Function(Uint8List) uploadImage) {
+Widget _goToNextPageButton(BuildContext context, String _requestButtonText, Uint8List? _image, Future<String> Function(Uint8List) uploadImage) {
   return ElevatedButton(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all<Color>(
@@ -133,8 +133,8 @@ Widget _goToNextPageButton(BuildContext context, String _requestButtonText, Uint
     ),
     onPressed: () async {
       try{
-        int _imageId = await uploadImage(_image!);
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => FaceAnalyzeResultView(imageId: _imageId,)));
+        String _imageUrl = await uploadImage(_image!);
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => FaceAnalyzeResultView(imageUrl: _imageUrl,)));
       } catch (error, stackTrace) {
         errorNotification(context, "사진 업로드 실패",error.toString().split(":")[5].split(",")[0]);
         log("Error: $error, StackTrace: $stackTrace");
