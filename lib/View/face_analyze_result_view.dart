@@ -58,15 +58,28 @@ class _FaceAnalyzeResultViewState extends ConsumerState<FaceAnalyzeResultView> {
                   height: MediaQuery.of(context).size.height,
                   child: Column(
                     children: [
-                      Center(
-                        child: Image.network(
-                          _imageAddress,
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          height: MediaQuery.of(context).size.height * 0.2,
+                      Padding(
+                        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.025),
+                        child: Center(
+                          child: Image.network(
+                            _imageAddress,
+                            width: MediaQuery.of(context).size.width * 0.25,
+                            height: MediaQuery.of(context).size.height * 0.25,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.width * 0.025),
+                        child: Container(
+                          width : MediaQuery.of(context).size.width * 0.85,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black54),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
                       ),
                       Text(
-                        "사용자가 업로드한 이미지(S3 주소로)\n이미지 분석 결과가 나오는 곳",
+                        "이미지 분석 결과가 나오는 곳",
                         style: TextStyle(
                           fontSize: MediaQuery.of(context).size.height * 0.05,
                         ),
