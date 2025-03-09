@@ -6,3 +6,4 @@
 ## 화면
 <img src="https://github.com/user-attachments/assets/3ab34602-9c79-44d2-94e8-723e9c8595e9" width="300">
 <img src="https://github.com/user-attachments/assets/60406f67-1064-4c98-b3f0-0362a13fb02f" width="300">
+<img src="https://github.com/user-attachments/assets/f5cc1aca-745d-4f54-8993-49f622db4e8d" width="300">
