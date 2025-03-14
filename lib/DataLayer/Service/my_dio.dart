@@ -10,7 +10,7 @@ class MyDio {
   MyDio() {
     dio.options.baseUrl = "http://localhost:8080";
     dio.options.connectTimeout = Duration(seconds: 15);
-    dio.options.receiveTimeout = Duration(seconds: 15);
+    dio.options.receiveTimeout = Duration(seconds: 30);
     dio.options.headers = {
       "Content-Type": "application/json",
     };
