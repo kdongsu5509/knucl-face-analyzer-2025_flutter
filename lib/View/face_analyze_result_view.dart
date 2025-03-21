@@ -138,7 +138,7 @@ Widget _faceAnalyzerTitle(BuildContext context, String title) {
           ),
           SizedBox(width: MediaQuery.of(context).size.width * 0.01),
           Icon(
-            Icons.share,
+            Icons.qr_code,
             size: MediaQuery.of(context).size.width * 0.03,
           ),
         ],

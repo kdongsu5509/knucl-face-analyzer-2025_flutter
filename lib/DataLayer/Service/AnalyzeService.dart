@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:knucl_face_analyzer_2025/DataLayer/dto/analyze_result_dto.dart';
 import 'my_dio.dart';
 
 /**
@@ -55,7 +56,7 @@ class AnalyzeService {
     //     }
     // }
 
-    Future<String> getSSEStream(String imageUrl) async {
+    Future<AnalyzeResultDTO> getSSEStream(String imageUrl) async {
       FormData formData = FormData.fromMap({
         "imgAddress": imageUrl
       });
@@ -66,7 +67,8 @@ class AnalyzeService {
         );
 
         if (response.statusCode == 200) {
-          return response.data!;
+          AnalyzeResultDTO result = AnalyzeResultDTO.fromJson(response.data);
+          return result;
         } else {
           throw Exception('서버 에러: ${response.statusCode}');
         }
