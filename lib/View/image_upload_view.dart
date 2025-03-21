@@ -132,6 +132,10 @@ Widget _goToNextPageButton(BuildContext context, String _requestButtonText, Uint
       ),
     ),
     onPressed: () async {
+      if (_image == null) {
+        errorNotification(context, "사진 선택 실패", "사진을 선택해주세요.");
+        return;
+      }
       try{
         String _imageUrl = await uploadImage(_image!);
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => FaceAnalyzeResultView(imageUrl: _imageUrl,)));
