@@ -136,7 +136,11 @@ class _FaceAnalyzeResultViewState extends State<FaceAnalyzeResultView> {
             ),
             SizedBox(width: MediaQuery.of(context).size.width * 0.01),
             GestureDetector(
-              onTap: () => _viewModel.showQrCodePopup(context, _viewModel.resultUuid!), // 팝업 띄우는 함수 호출
+    onTap: () {
+    Future.delayed(Duration.zero, () {
+    _viewModel.showQrCodePopup(context, _viewModel.resultUuid!, widget.imageUrl,);
+    });
+    },
               child: Icon(
                 Icons.qr_code,
                 size: MediaQuery.of(context).size.width * 0.03,

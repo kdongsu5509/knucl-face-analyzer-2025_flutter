@@ -30,7 +30,7 @@ class FaceAnalyzeResultViewModel extends ChangeNotifier {
       _resultUuid = resultDto.uuid;
       for (int i = 0; i < result.length; i++) {
         _streamController.add(result[i]);
-        await Future.delayed(Duration(milliseconds: 100));
+        await Future.delayed(Duration(milliseconds: 50));
       }
       _streamController.close();
     } catch (e) {
@@ -44,13 +44,17 @@ class FaceAnalyzeResultViewModel extends ChangeNotifier {
     super.dispose();
   }
 
-  void showQrCodePopup(BuildContext context, String resultUuid) {
+  void showQrCodePopup(BuildContext context, String resultUuid, String imageUrl,) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text('QR 코드'),
-          content: QrCodeView(resultUuid: resultUuid),
+          content: SizedBox(
+            width: 320,
+            height: 320,
+            child: QrCodeView(resultUuid: resultUuid, imageUrl: imageUrl),
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
