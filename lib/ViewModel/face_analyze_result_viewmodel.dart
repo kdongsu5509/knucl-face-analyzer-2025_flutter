@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:knucl_face_analyzer_2025/DataLayer/Service/AnalyzeService.dart';
 
 import '../DataLayer/dto/analyze_result_dto.dart';
+import '../View/qr_code_view.dart';
 
 /**
  * @Structure :
@@ -42,4 +43,26 @@ class FaceAnalyzeResultViewModel extends ChangeNotifier {
     _streamController.close();
     super.dispose();
   }
+
+  void showQrCodePopup(BuildContext context, String resultUuid) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('QR 코드'),
+          content: QrCodeView(resultUuid: resultUuid),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('닫기'),
+            ),
+          ],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        );
+      },
+    );
+  }
+
 }

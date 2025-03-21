@@ -111,38 +111,40 @@ class _FaceAnalyzeResultViewState extends State<FaceAnalyzeResultView> {
       ),
     );
   }
-}
-
-Widget _faceAnalyzerTitle(BuildContext context, String title) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      // _faceAnalyzerTitle(context),
-      Text(
-        title,
-        style: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.05,
+  Widget _faceAnalyzerTitle(BuildContext context, String title) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // _faceAnalyzerTitle(context),
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.width * 0.05,
+          ),
         ),
-      ),
-      Row(
-        children: [
-          GestureDetector(
-            onTap:
-                () => Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomeView()),
+        Row(
+          children: [
+            GestureDetector(
+              onTap:
+                  () => Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => HomeView()),
+              ),
+              child: Icon(
+                Icons.home,
+                size: MediaQuery.of(context).size.width * 0.035,
+              ),
             ),
-            child: Icon(
-              Icons.home,
-              size: MediaQuery.of(context).size.width * 0.035,
+            SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+            GestureDetector(
+              onTap: () => _viewModel.showQrCodePopup(context, _viewModel.resultUuid!), // 팝업 띄우는 함수 호출
+              child: Icon(
+                Icons.qr_code,
+                size: MediaQuery.of(context).size.width * 0.03,
+              ),
             ),
-          ),
-          SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-          Icon(
-            Icons.qr_code,
-            size: MediaQuery.of(context).size.width * 0.03,
-          ),
-        ],
-      ),
-    ],
-  );
+          ],
+        ),
+      ],
+    );
+  }
 }
