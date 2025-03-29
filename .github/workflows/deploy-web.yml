@@ -21,14 +21,13 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Build Web
-        run: flutter build web --release --base-href="/knucl-face-analyzer-2025_flutter/"
-
-      #4
       - name: Create knuclFaceAnalyzer2025.env file
         run: |
           touch ./knuclFaceAnalyzer2025.env
           echo "${{ secrets.KNUCL_SECRET }}" > ./knuclFaceAnalyzer2025.env
+
+      - name: Build Web
+        run: flutter build web --release --base-href="/knucl-face-analyzer-2025_flutter/"
 
       - name: Add .nojekyll
         run: echo > build/web/.nojekyll
@@ -36,6 +35,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.STATIC_DEPLOY_KEY }} # repository에서 사용할 시크릿 키 이름
+          github_token: ${{ secrets.STATIC_DEPLOY_KEY }}
           publish_dir: build/web
           publish_branch: gh-pages
