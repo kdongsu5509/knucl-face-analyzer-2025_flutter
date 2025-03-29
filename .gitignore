@@ -45,7 +45,6 @@ app.*.map.json
 /android/app/release
 
 # results of flutter build of web and windwos
-/web/
 /windows/
 
 # information about project's secrets

@@ -55,7 +55,7 @@ class _ImageUploadViewState extends ConsumerState<ImageUploadView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFcdc5b1),
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
