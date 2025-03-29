@@ -32,6 +32,13 @@ jobs:
       - name: Add .nojekyll
         run: echo > build/web/.nojekyll
 
+      - name: Create 404.html for path routing
+        run: |
+          echo '<script>' > build/web/404.html
+          echo 'const redirectTo = location.pathname.replace("/knucl-face-analyzer-2025_flutter", "");' >> build/web/404.html
+          echo 'location.replace("/knucl-face-analyzer-2025_flutter/index.html?redirect=" + redirectTo);' >> build/web/404.html
+          echo '</script>' >> build/web/404.html
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
