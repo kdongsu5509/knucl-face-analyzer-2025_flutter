@@ -43,9 +43,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-# results of flutter build of web and windwos
-/windows/
-
-# information about project's secrets
-*.env
