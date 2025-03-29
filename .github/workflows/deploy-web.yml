@@ -23,17 +23,24 @@ jobs:
           channel: stable
           flutter-version: 3.29.2
 
+      #3
       - name: set flutter for web
         run: flutter create .
 
-      # 3
+      #4
+      - name: Create knuclFaceAnalyzer2025.env file
+        run: |
+          touch ./knuclFaceAnalyzer2025.env
+          echo "${{ secrets.KNUCL_SECRET }}" > ./knuclFaceAnalyzer2025.env
+
+      # 5
       - name: Build web
         run: flutter build web --base-href "/${{ github.event.repository.name }}/"
 
-      # 4
+      # 6
       # https://github.com/marketplace/actions/github-pages-action
       - name: Deploy to github pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.STATIC_DEPLOY_KEY }}
-          publish_dir: ./build/web
+          publish_dir: ./build/web    
