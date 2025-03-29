@@ -24,6 +24,12 @@ jobs:
       - name: Build Web
         run: flutter build web --release
 
+      #4
+      - name: Create knuclFaceAnalyzer2025.env file
+        run: |
+          touch ./knuclFaceAnalyzer2025.env
+          echo "${{ secrets.KNUCL_SECRET }}" > ./knuclFaceAnalyzer2025.env
+
       - name: Add .nojekyll
         run: echo > build/web/.nojekyll
 
