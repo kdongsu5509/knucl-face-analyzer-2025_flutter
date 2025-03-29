@@ -23,6 +23,9 @@ jobs:
           channel: stable
           flutter-version: 3.29.2
 
+      - name: set flutter for web
+        run: flutter create .
+
       # 3
       - name: Build web
         run: flutter build web --base-href "/${{ github.event.repository.name }}/"
