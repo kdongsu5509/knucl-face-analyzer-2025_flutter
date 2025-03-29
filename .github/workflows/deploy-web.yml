@@ -10,31 +10,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: 3.29.2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.29.2
 
-    - name: Install Dependencies
-      run: flutter pub get
+      - name: Install Dependencies
+        run: flutter pub get
 
-    - name: Create knuclFaceAnalyzer2025.env file
-      run: |
-        touch ./knuclFaceAnalyzer2025.env
-        echo "${{ secrets.KNUCL_SECRET }}" > ./knuclFaceAnalyzer2025.env
+      - name: Create knuclFaceAnalyzer2025.env file
+        run: |
+          touch ./knuclFaceAnalyzer2025.env
+          echo "${{ secrets.KNUCL_SECRET }}" > ./knuclFaceAnalyzer2025.env
 
-    - name: Build Web
-      run: flutter build web --release
+      - name: Build Web
+        run: flutter build web --release --base-href="/knucl-face-analyzer-2025_flutter/"
 
-    - name: Add .nojekyll
-      run: echo > build/web/.nojekyll
+      - name: Add .nojekyll
+        run: echo > build/web/.nojekyll
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.STATIC_DEPLOY_KEY }}
-        publish_dir: build/web
-        publish_branch: gh-pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.STATIC_DEPLOY_KEY }}
+          publish_dir: build/web
+          publish_branch: gh-pages
